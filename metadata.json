@@ -1,0 +1,6 @@
+{
+  "name": "School Management System",
+  "description": "A comprehensive school management system for administrators, teachers, students, and parents, featuring academic tracking, attendance, grading, scheduling, and billing analytics.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

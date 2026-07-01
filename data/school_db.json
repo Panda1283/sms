@@ -1,0 +1,1753 @@
+{
+  "users": [
+    {
+      "id": "usr-admin",
+      "fullname": "Sarah Jenkins",
+      "email": "admin@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "ADMIN",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-t1",
+      "fullname": "Dr. Robert Carter",
+      "email": "robert.carter@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "TEACHER",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-t2",
+      "fullname": "Prof. Helen Myers",
+      "email": "helen.myers@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "TEACHER",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-t3",
+      "fullname": "Marcus Thompson",
+      "email": "marcus.thompson@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "TEACHER",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-t4",
+      "fullname": "Emily Vance",
+      "email": "emily.vance@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "TEACHER",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-p1",
+      "fullname": "Arthur Pendelton",
+      "email": "arthur.p@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "PARENT",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-p2",
+      "fullname": "Claire Fontaine",
+      "email": "claire.f@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "PARENT",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-p3",
+      "fullname": "David Vance",
+      "email": "david.v@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "PARENT",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-s1",
+      "fullname": "Alex Pendelton",
+      "email": "alex.p@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "STUDENT",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-s2",
+      "fullname": "Chloe Pendelton",
+      "email": "chloe.p@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "STUDENT",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-s3",
+      "fullname": "Maxime Fontaine",
+      "email": "maxime.f@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "STUDENT",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-s4",
+      "fullname": "Julian Vance",
+      "email": "julian.v@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "STUDENT",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-s5",
+      "fullname": "Sophia Miller",
+      "email": "sophia.m@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "STUDENT",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-s6",
+      "fullname": "Liam Anderson",
+      "email": "liam.a@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "STUDENT",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-s7",
+      "fullname": "Tommy Baker",
+      "email": "tommy.b@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "STUDENT",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-s8",
+      "fullname": "Lily Evans",
+      "email": "lily.e@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "STUDENT",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-s9",
+      "fullname": "Leo Harris",
+      "email": "leo.h@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "STUDENT",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    },
+    {
+      "id": "usr-s10",
+      "fullname": "Emma Wilson",
+      "email": "emma.w@school.com",
+      "password": "$2b$10$7BHz1jyR50yOQwOGvtbTSOPtqc8YNWretWCq2613CNPVe.j6WD8oi",
+      "role": "STUDENT",
+      "created_at": "2026-07-01T10:20:54.978Z"
+    }
+  ],
+  "students": [
+    {
+      "student_id": "std-1",
+      "user_id": "usr-s1",
+      "grade": "Grade 10",
+      "section": "A",
+      "parent_id": "prt-1",
+      "gender": "Male"
+    },
+    {
+      "student_id": "std-2",
+      "user_id": "usr-s2",
+      "grade": "Grade 10",
+      "section": "A",
+      "parent_id": "prt-1",
+      "gender": "Female"
+    },
+    {
+      "student_id": "std-3",
+      "user_id": "usr-s3",
+      "grade": "Grade 11",
+      "section": "B",
+      "parent_id": "prt-2",
+      "gender": "Male"
+    },
+    {
+      "student_id": "std-4",
+      "user_id": "usr-s4",
+      "grade": "Grade 12",
+      "section": "A",
+      "parent_id": "prt-3",
+      "gender": "Male"
+    },
+    {
+      "student_id": "std-5",
+      "user_id": "usr-s5",
+      "grade": "Grade 10",
+      "section": "B",
+      "gender": "Female"
+    },
+    {
+      "student_id": "std-6",
+      "user_id": "usr-s6",
+      "grade": "Grade 11",
+      "section": "A",
+      "gender": "Male"
+    },
+    {
+      "student_id": "std-7",
+      "user_id": "usr-s7",
+      "grade": "KG",
+      "section": "A",
+      "gender": "Male"
+    },
+    {
+      "student_id": "std-8",
+      "user_id": "usr-s8",
+      "grade": "Grade 1",
+      "section": "B",
+      "gender": "Female"
+    },
+    {
+      "student_id": "std-9",
+      "user_id": "usr-s9",
+      "grade": "Grade 5",
+      "section": "C",
+      "gender": "Male"
+    },
+    {
+      "student_id": "std-10",
+      "user_id": "usr-s10",
+      "grade": "Grade 8",
+      "section": "D",
+      "gender": "Female"
+    }
+  ],
+  "teachers": [
+    {
+      "teacher_id": "tch-1",
+      "user_id": "usr-t1",
+      "subject": "Mathematics"
+    },
+    {
+      "teacher_id": "tch-2",
+      "user_id": "usr-t2",
+      "subject": "Science"
+    },
+    {
+      "teacher_id": "tch-3",
+      "user_id": "usr-t3",
+      "subject": "English Literature"
+    },
+    {
+      "teacher_id": "tch-4",
+      "user_id": "usr-t4",
+      "subject": "World History"
+    }
+  ],
+  "parents": [
+    {
+      "parent_id": "prt-1",
+      "user_id": "usr-p1"
+    },
+    {
+      "parent_id": "prt-2",
+      "user_id": "usr-p2"
+    },
+    {
+      "parent_id": "prt-3",
+      "user_id": "usr-p3"
+    }
+  ],
+  "courses": [
+    {
+      "course_id": "crs-math",
+      "course_name": "Advanced Algebra II",
+      "teacher_id": "tch-1"
+    },
+    {
+      "course_id": "crs-sci",
+      "course_name": "Physics & Mechanics",
+      "teacher_id": "tch-2"
+    },
+    {
+      "course_id": "crs-eng",
+      "course_name": "English Literature",
+      "teacher_id": "tch-3"
+    },
+    {
+      "course_id": "crs-hist",
+      "course_name": "Modern World History",
+      "teacher_id": "tch-4"
+    }
+  ],
+  "attendance": [
+    {
+      "attendance_id": "att-1",
+      "student_id": "std-1",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-2",
+      "student_id": "std-1",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-3",
+      "student_id": "std-1",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-4",
+      "student_id": "std-1",
+      "course_id": "crs-hist",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-5",
+      "student_id": "std-2",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-6",
+      "student_id": "std-2",
+      "course_id": "crs-sci",
+      "status": "LATE",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-7",
+      "student_id": "std-2",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-8",
+      "student_id": "std-2",
+      "course_id": "crs-hist",
+      "status": "ABSENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-9",
+      "student_id": "std-3",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-10",
+      "student_id": "std-3",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-11",
+      "student_id": "std-4",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-12",
+      "student_id": "std-4",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-13",
+      "student_id": "std-5",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-14",
+      "student_id": "std-5",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-15",
+      "student_id": "std-5",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-16",
+      "student_id": "std-6",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-17",
+      "student_id": "std-6",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-18",
+      "student_id": "std-6",
+      "course_id": "crs-hist",
+      "status": "PRESENT",
+      "date": "2026-06-18"
+    },
+    {
+      "attendance_id": "att-19",
+      "student_id": "std-1",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-20",
+      "student_id": "std-1",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-21",
+      "student_id": "std-1",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-22",
+      "student_id": "std-1",
+      "course_id": "crs-hist",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-23",
+      "student_id": "std-2",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-24",
+      "student_id": "std-2",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-25",
+      "student_id": "std-2",
+      "course_id": "crs-eng",
+      "status": "LATE",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-26",
+      "student_id": "std-2",
+      "course_id": "crs-hist",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-27",
+      "student_id": "std-3",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-28",
+      "student_id": "std-3",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-29",
+      "student_id": "std-4",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-30",
+      "student_id": "std-4",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-31",
+      "student_id": "std-5",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-32",
+      "student_id": "std-5",
+      "course_id": "crs-sci",
+      "status": "LATE",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-33",
+      "student_id": "std-5",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-34",
+      "student_id": "std-6",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-35",
+      "student_id": "std-6",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-36",
+      "student_id": "std-6",
+      "course_id": "crs-hist",
+      "status": "PRESENT",
+      "date": "2026-06-19"
+    },
+    {
+      "attendance_id": "att-37",
+      "student_id": "std-1",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-38",
+      "student_id": "std-1",
+      "course_id": "crs-sci",
+      "status": "ABSENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-39",
+      "student_id": "std-1",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-40",
+      "student_id": "std-1",
+      "course_id": "crs-hist",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-41",
+      "student_id": "std-2",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-42",
+      "student_id": "std-2",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-43",
+      "student_id": "std-2",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-44",
+      "student_id": "std-2",
+      "course_id": "crs-hist",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-45",
+      "student_id": "std-3",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-46",
+      "student_id": "std-3",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-47",
+      "student_id": "std-4",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-48",
+      "student_id": "std-4",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-49",
+      "student_id": "std-5",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-50",
+      "student_id": "std-5",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-51",
+      "student_id": "std-5",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-52",
+      "student_id": "std-6",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-53",
+      "student_id": "std-6",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-54",
+      "student_id": "std-6",
+      "course_id": "crs-hist",
+      "status": "PRESENT",
+      "date": "2026-06-22"
+    },
+    {
+      "attendance_id": "att-55",
+      "student_id": "std-1",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-56",
+      "student_id": "std-1",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-57",
+      "student_id": "std-1",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-58",
+      "student_id": "std-1",
+      "course_id": "crs-hist",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-59",
+      "student_id": "std-2",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-60",
+      "student_id": "std-2",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-61",
+      "student_id": "std-2",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-62",
+      "student_id": "std-2",
+      "course_id": "crs-hist",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-63",
+      "student_id": "std-3",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-64",
+      "student_id": "std-3",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-65",
+      "student_id": "std-4",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-66",
+      "student_id": "std-4",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-67",
+      "student_id": "std-5",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-68",
+      "student_id": "std-5",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-69",
+      "student_id": "std-5",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-70",
+      "student_id": "std-6",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-71",
+      "student_id": "std-6",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-72",
+      "student_id": "std-6",
+      "course_id": "crs-hist",
+      "status": "PRESENT",
+      "date": "2026-06-23"
+    },
+    {
+      "attendance_id": "att-73",
+      "student_id": "std-1",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-74",
+      "student_id": "std-1",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-75",
+      "student_id": "std-1",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-76",
+      "student_id": "std-1",
+      "course_id": "crs-hist",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-77",
+      "student_id": "std-2",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-78",
+      "student_id": "std-2",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-79",
+      "student_id": "std-2",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-80",
+      "student_id": "std-2",
+      "course_id": "crs-hist",
+      "status": "LATE",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-81",
+      "student_id": "std-3",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-82",
+      "student_id": "std-3",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-83",
+      "student_id": "std-4",
+      "course_id": "crs-math",
+      "status": "LATE",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-84",
+      "student_id": "std-4",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-85",
+      "student_id": "std-5",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-86",
+      "student_id": "std-5",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-87",
+      "student_id": "std-5",
+      "course_id": "crs-eng",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-88",
+      "student_id": "std-6",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-89",
+      "student_id": "std-6",
+      "course_id": "crs-sci",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-90",
+      "student_id": "std-6",
+      "course_id": "crs-hist",
+      "status": "PRESENT",
+      "date": "2026-06-24"
+    },
+    {
+      "attendance_id": "att-avq10n1w4",
+      "student_id": "std-1",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-07-01"
+    },
+    {
+      "attendance_id": "att-16xknld0p",
+      "student_id": "std-2",
+      "course_id": "crs-math",
+      "status": "PRESENT",
+      "date": "2026-07-01"
+    }
+  ],
+  "grades": [
+    {
+      "grade_id": "grd-1",
+      "student_id": "std-1",
+      "course_id": "crs-math",
+      "score": 94,
+      "grade": "A"
+    },
+    {
+      "grade_id": "grd-2",
+      "student_id": "std-1",
+      "course_id": "crs-sci",
+      "score": 88,
+      "grade": "B+"
+    },
+    {
+      "grade_id": "grd-3",
+      "student_id": "std-1",
+      "course_id": "crs-eng",
+      "score": 91,
+      "grade": "A-"
+    },
+    {
+      "grade_id": "grd-4",
+      "student_id": "std-1",
+      "course_id": "crs-hist",
+      "score": 96,
+      "grade": "A+"
+    },
+    {
+      "grade_id": "grd-5",
+      "student_id": "std-2",
+      "course_id": "crs-math",
+      "score": 85,
+      "grade": "B"
+    },
+    {
+      "grade_id": "grd-6",
+      "student_id": "std-2",
+      "course_id": "crs-sci",
+      "score": 85,
+      "grade": "B"
+    },
+    {
+      "grade_id": "grd-7",
+      "student_id": "std-2",
+      "course_id": "crs-eng",
+      "score": 92,
+      "grade": "A"
+    },
+    {
+      "grade_id": "grd-8",
+      "student_id": "std-3",
+      "course_id": "crs-math",
+      "score": 68,
+      "grade": "D"
+    },
+    {
+      "grade_id": "grd-9",
+      "student_id": "std-3",
+      "course_id": "crs-sci",
+      "score": 74,
+      "grade": "C"
+    },
+    {
+      "grade_id": "grd-10",
+      "student_id": "std-3",
+      "course_id": "crs-hist",
+      "score": 82,
+      "grade": "B-"
+    },
+    {
+      "grade_id": "grd-11",
+      "student_id": "std-4",
+      "course_id": "crs-math",
+      "score": 99,
+      "grade": "A+"
+    },
+    {
+      "grade_id": "grd-12",
+      "student_id": "std-4",
+      "course_id": "crs-sci",
+      "score": 95,
+      "grade": "A"
+    },
+    {
+      "grade_id": "grd-13",
+      "student_id": "std-5",
+      "course_id": "crs-math",
+      "score": 83,
+      "grade": "B"
+    },
+    {
+      "grade_id": "grd-14",
+      "student_id": "std-5",
+      "course_id": "crs-eng",
+      "score": 87,
+      "grade": "B+"
+    },
+    {
+      "grade_id": "grd-15",
+      "student_id": "std-6",
+      "course_id": "crs-sci",
+      "score": 90,
+      "grade": "A-"
+    },
+    {
+      "grade_id": "grd-16",
+      "student_id": "std-6",
+      "course_id": "crs-hist",
+      "score": 85,
+      "grade": "B"
+    }
+  ],
+  "timetables": [
+    {
+      "timetable_id": "tt-1",
+      "class_name": "Grade 10-A",
+      "course_id": "crs-math",
+      "teacher_id": "tch-1",
+      "day": "Monday",
+      "start_time": "08:30",
+      "end_time": "10:00"
+    },
+    {
+      "timetable_id": "tt-2",
+      "class_name": "Grade 10-A",
+      "course_id": "crs-sci",
+      "teacher_id": "tch-2",
+      "day": "Monday",
+      "start_time": "10:15",
+      "end_time": "11:45"
+    },
+    {
+      "timetable_id": "tt-3",
+      "class_name": "Grade 10-A",
+      "course_id": "crs-eng",
+      "teacher_id": "tch-3",
+      "day": "Wednesday",
+      "start_time": "08:30",
+      "end_time": "10:00"
+    },
+    {
+      "timetable_id": "tt-4",
+      "class_name": "Grade 10-A",
+      "course_id": "crs-hist",
+      "teacher_id": "tch-4",
+      "day": "Friday",
+      "start_time": "13:00",
+      "end_time": "14:30"
+    },
+    {
+      "timetable_id": "tt-5",
+      "class_name": "Grade 10-B",
+      "course_id": "crs-math",
+      "teacher_id": "tch-1",
+      "day": "Tuesday",
+      "start_time": "08:30",
+      "end_time": "10:00"
+    },
+    {
+      "timetable_id": "tt-6",
+      "class_name": "Grade 10-B",
+      "course_id": "crs-sci",
+      "teacher_id": "tch-2",
+      "day": "Tuesday",
+      "start_time": "10:15",
+      "end_time": "11:45"
+    },
+    {
+      "timetable_id": "tt-7",
+      "class_name": "Grade 10-B",
+      "course_id": "crs-eng",
+      "teacher_id": "tch-3",
+      "day": "Thursday",
+      "start_time": "08:30",
+      "end_time": "10:00"
+    },
+    {
+      "timetable_id": "tt-8",
+      "class_name": "Grade 11-A",
+      "course_id": "crs-math",
+      "teacher_id": "tch-1",
+      "day": "Monday",
+      "start_time": "13:00",
+      "end_time": "14:30"
+    },
+    {
+      "timetable_id": "tt-9",
+      "class_name": "Grade 11-A",
+      "course_id": "crs-sci",
+      "teacher_id": "tch-2",
+      "day": "Wednesday",
+      "start_time": "10:15",
+      "end_time": "11:45"
+    },
+    {
+      "timetable_id": "tt-10",
+      "class_name": "Grade 11-A",
+      "course_id": "crs-hist",
+      "teacher_id": "tch-4",
+      "day": "Friday",
+      "start_time": "08:30",
+      "end_time": "10:00"
+    },
+    {
+      "timetable_id": "tt-11",
+      "class_name": "Grade 11-B",
+      "course_id": "crs-eng",
+      "teacher_id": "tch-3",
+      "day": "Monday",
+      "start_time": "10:15",
+      "end_time": "11:45"
+    },
+    {
+      "timetable_id": "tt-12",
+      "class_name": "Grade 11-B",
+      "course_id": "crs-sci",
+      "teacher_id": "tch-2",
+      "day": "Thursday",
+      "start_time": "13:00",
+      "end_time": "14:30"
+    },
+    {
+      "timetable_id": "tt-13",
+      "class_name": "Grade 12-A",
+      "course_id": "crs-math",
+      "teacher_id": "tch-1",
+      "day": "Wednesday",
+      "start_time": "13:00",
+      "end_time": "14:30"
+    },
+    {
+      "timetable_id": "tt-14",
+      "class_name": "Grade 12-A",
+      "course_id": "crs-sci",
+      "teacher_id": "tch-2",
+      "day": "Friday",
+      "start_time": "10:15",
+      "end_time": "11:45"
+    }
+  ],
+  "payments": [
+    {
+      "payment_id": "pmt-1",
+      "student_id": "std-1",
+      "amount": 1200,
+      "payment_date": "2026-06-05",
+      "status": "PAID"
+    },
+    {
+      "payment_id": "pmt-2",
+      "student_id": "std-2",
+      "amount": 1200,
+      "payment_date": "2026-06-05",
+      "status": "PAID"
+    },
+    {
+      "payment_id": "pmt-3",
+      "student_id": "std-3",
+      "amount": 1500,
+      "payment_date": "2026-06-12",
+      "status": "PENDING"
+    },
+    {
+      "payment_id": "pmt-4",
+      "student_id": "std-4",
+      "amount": 1800,
+      "payment_date": "2026-05-10",
+      "status": "OVERDUE"
+    },
+    {
+      "payment_id": "pmt-5",
+      "student_id": "std-5",
+      "amount": 1200,
+      "payment_date": "2026-06-14",
+      "status": "PAID"
+    },
+    {
+      "payment_id": "pmt-6",
+      "student_id": "std-6",
+      "amount": 1500,
+      "payment_date": "2026-06-20",
+      "status": "PENDING"
+    }
+  ],
+  "notifications": [
+    {
+      "notification_id": "not-c6pui2hgy",
+      "title": "New Grade Posted: Advanced Algebra II",
+      "message": "A new grade has been posted for Chloe Pendelton in Advanced Algebra II: Score of 85% (Grade: B).",
+      "recipient": "ALL",
+      "created_at": "2026-07-01T11:27:39.385Z"
+    },
+    {
+      "notification_id": "not-1",
+      "title": "Welcome to the New School Term",
+      "message": "We are excited to welcome all parents, students, and teachers back for this academic term. Let's work together to achieve excellence.",
+      "recipient": "ALL",
+      "created_at": "2026-06-01T08:00:00Z"
+    },
+    {
+      "notification_id": "not-2",
+      "title": "Final Term Examinations Schedule",
+      "message": "The schedules for final evaluations are posted in the timetables section. Exams commence next month.",
+      "recipient": "ALL",
+      "created_at": "2026-06-15T09:30:00Z"
+    },
+    {
+      "notification_id": "not-3",
+      "title": "Science Fair Enrollment Extended",
+      "message": "Good news! Project submission deadline for the regional Science Fair has been extended by one week.",
+      "recipient": "ALL",
+      "created_at": "2026-06-20T11:00:00Z"
+    },
+    {
+      "notification_id": "not-4",
+      "title": "Urgent Tuition Payments Notice",
+      "message": "Please review outstanding payments in your fees dashboard. Late fees will apply after June 30th.",
+      "recipient": "PARENT",
+      "created_at": "2026-06-22T14:15:00Z"
+    },
+    {
+      "notification_id": "not-5",
+      "title": "Teacher Evaluation Feedback",
+      "message": "All teachers are requested to submit evaluation feedback for Grade 10 classes by Friday.",
+      "recipient": "TEACHER",
+      "created_at": "2026-06-23T10:00:00Z"
+    }
+  ],
+  "assignments": [
+    {
+      "assignment_id": "asg-3uyds4nwq",
+      "title": "hbjnm",
+      "description": "nm,./",
+      "course_id": "crs-math",
+      "course_name": "Advanced Algebra II",
+      "class_name": "Grade 10-A",
+      "type": "GROUP",
+      "due_date": "2026-07-02",
+      "attachments": [],
+      "created_at": "2026-07-01T10:56:24.105Z",
+      "groups": [
+        {
+          "group_id": "grp-4mr9j0b6m",
+          "name": "Project Team A",
+          "student_ids": [
+            "std-2"
+          ]
+        },
+        {
+          "group_id": "grp-pa3ctnp77",
+          "name": "Project Team B",
+          "student_ids": [
+            "std-1"
+          ]
+        }
+      ]
+    },
+    {
+      "assignment_id": "asg-1",
+      "title": "Mitochondria Cell Essay",
+      "description": "Write a 500-word academic analysis exploring why the mitochondria is designated the powerhouse of the cell. Highlight cellular respiration and ATP conversion.",
+      "course_id": "crs-sci",
+      "course_name": "Physics & Mechanics",
+      "class_name": "Grade 10-A",
+      "type": "INDIVIDUAL",
+      "due_date": "2026-06-28",
+      "attachments": [
+        {
+          "name": "Cell Diagram Guide.pdf",
+          "url": "#"
+        }
+      ],
+      "created_at": "2026-07-01T10:20:54.979Z"
+    },
+    {
+      "assignment_id": "asg-2",
+      "title": "Clean Energy Solution Debate",
+      "description": "Form a collaborative team analysis assessing Solar versus Wind power energy grids. Present structural efficiency calculations, installation footprints, and life-cycle costs.",
+      "course_id": "crs-sci",
+      "course_name": "Physics & Mechanics",
+      "class_name": "Grade 10-A",
+      "type": "GROUP",
+      "due_date": "2026-07-02",
+      "attachments": [
+        {
+          "name": "Grid Efficiency Calculations.xlsx",
+          "url": "#"
+        }
+      ],
+      "created_at": "2026-07-01T10:20:54.979Z",
+      "groups": [
+        {
+          "group_id": "grp-1",
+          "group_name": "Solar Pioneers",
+          "student_ids": [
+            "std-1",
+            "std-5"
+          ]
+        },
+        {
+          "group_id": "grp-2",
+          "group_name": "Wind Turbiners",
+          "student_ids": [
+            "std-2"
+          ]
+        }
+      ]
+    }
+  ],
+  "assignmentSubmissions": [
+    {
+      "submission_id": "sub-bxjoihpn0",
+      "assignment_id": "asg-3uyds4nwq",
+      "group_id": "grp-pa3ctnp77",
+      "submitted_files": [
+        {
+          "name": "Assignment Guideline.docx",
+          "content": "data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,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",
+          "url": "#"
+        }
+      ],
+      "submitted_at": "2026-07-01T11:16:26.629Z",
+      "status": "GRADED",
+      "group_member_contributions": [
+        {
+          "student_id": "std-1",
+          "student_name": "Alex Pendelton",
+          "contribution_percentage": 100,
+          "notes": ""
+        }
+      ],
+      "score": 10,
+      "feedback": "betam arif nw "
+    },
+    {
+      "submission_id": "sub-c96597ilo",
+      "assignment_id": "asg-2",
+      "group_id": "grp-1",
+      "submitted_files": [
+        {
+          "name": "ISW 3&4.docx",
+          "content": "data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,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",
+          "url": "#"
+        }
+      ],
+      "submitted_at": "2026-07-01T11:18:08.833Z",
+      "status": "SUBMITTED",
+      "group_member_contributions": [
+        {
+          "student_id": "std-1",
+          "student_name": "Alex Pendelton",
+          "contribution_percentage": 50,
+          "notes": ""
+        },
+        {
+          "student_id": "std-5",
+          "student_name": "Student Name (std-5)",
+          "contribution_percentage": 50,
+          "notes": "Peer contribution notes"
+        }
+      ]
+    }
+  ],
+  "assignmentGroupChats": [
+    {
+      "comment_id": "cmt-l9vi6af4n",
+      "assignment_id": "asg-3uyds4nwq",
+      "group_id": "grp-pa3ctnp77",
+      "student_id": "std-1",
+      "student_name": "Alex Pendelton",
+      "message": "jjjg ",
+      "created_at": "2026-07-01T11:16:05.774Z"
+    },
+    {
+      "comment_id": "cmt-2d12i0bad",
+      "assignment_id": "asg-2",
+      "group_id": "grp-1",
+      "student_id": "std-1",
+      "student_name": "Alex Pendelton",
+      "message": "hefdkikdfg",
+      "created_at": "2026-07-01T11:17:21.156Z"
+    }
+  ],
+  "books": [
+    {
+      "book_id": "bk-bio-9",
+      "title": "Biology Grade 9",
+      "author": "Dr. Evelyn Foster",
+      "grade_level": "Grade 9",
+      "subject": "Biology",
+      "cover_url": "https://images.unsplash.com/photo-1530210120071-01b5a41873b1?w=200&auto=format&fit=crop&q=60",
+      "description": "An introductory biology textbook covering taxonomy, plant cell functions, and biodiversity.",
+      "chapters": [
+        {
+          "chapter_id": "ch-bio9-1",
+          "title": "Classification and Five Kingdoms",
+          "content": "Taxonomy is the branch of science concerned with classification, especially of organisms. Living organisms are classified into five main kingdoms: Monera, Protista, Fungi, Plantae, and Animalia. Binomial nomenclature, created by Carl Linnaeus, gives each species a two-part scientific name consisting of its genus and species identifier. Biodiversity refers to the variety of life forms on Earth, which is critical for ecosystem stability and health."
+        }
+      ]
+    },
+    {
+      "book_id": "bk-bio-10",
+      "title": "Biology Grade 10",
+      "author": "Dr. Evelyn Foster",
+      "grade_level": "Grade 10",
+      "subject": "Biology",
+      "cover_url": "https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=200&auto=format&fit=crop&q=60",
+      "description": "Advanced topics in biology including gaseous exchange, cellular respiration, and human genetics.",
+      "chapters": [
+        {
+          "chapter_id": "ch-bio10-1",
+          "title": "Gaseous Exchange and Cellular Respiration",
+          "content": "Gaseous exchange is the biological process through which different gases are transferred across a cell membrane or respiratory surface. In plants, gaseous exchange occurs primarily through stomata in the leaves. In humans, gaseous exchange occurs in the alveoli of the lungs. Oxygen diffuses into the capillaries while carbon dioxide diffuses out. Cellular respiration is the chemical process where cells break down glucose to generate ATP energy, utilizing oxygen and producing carbon dioxide as a byproduct."
+        }
+      ]
+    },
+    {
+      "book_id": "bk-phy-11",
+      "title": "Physics Grade 11",
+      "author": "Prof. Arthur Pendelton",
+      "grade_level": "Grade 11",
+      "subject": "Physics",
+      "cover_url": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=200&auto=format&fit=crop&q=60",
+      "description": "Explores classical mechanics, thermodynamics, kinetic forces, and Newton's laws of motion.",
+      "chapters": [
+        {
+          "chapter_id": "ch-phy11-1",
+          "title": "Newton's Laws of Motion",
+          "content": "According to Physics Grade 11, Newton's First Law states that an object remains at rest or in uniform motion in a straight line unless acted upon by an external force. This is also called the law of inertia. Newton's Second Law states that the acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass, represented mathematically as F = ma. Newton's Third Law states that for every action, there is an equal and opposite reaction."
+        }
+      ]
+    },
+    {
+      "book_id": "bk-chem-12",
+      "title": "Chemistry Grade 12",
+      "author": "Dr. Alan Vance",
+      "grade_level": "Grade 12",
+      "subject": "Chemistry",
+      "cover_url": "https://images.unsplash.com/photo-1532187643603-ba119ca4109e?w=200&auto=format&fit=crop&q=60",
+      "description": "Covers physical chemistry, chemical equilibrium, Le Chatelier's principle, and organic molecular structures.",
+      "chapters": [
+        {
+          "chapter_id": "ch-chem12-1",
+          "title": "Chemical Equilibrium and Constants",
+          "content": "Chemical equilibrium is the state in a reversible reaction where the rate of the forward reaction equals the rate of the reverse reaction. As a result, the concentrations of reactants and products remain constant over time. Le Chatelier's principle states that if a dynamic equilibrium is disturbed by changing the conditions (temperature, pressure, or concentration), the position of equilibrium shifts to counteract the change. The equilibrium constant (Kc) is the ratio of product concentrations to reactant concentrations raised to their stoichiometric coefficients."
+        }
+      ]
+    },
+    {
+      "book_id": "bk-math-8",
+      "title": "Mathematics Grade 8",
+      "author": "Sarah Jenkins, MSc",
+      "grade_level": "Grade 8",
+      "subject": "Mathematics",
+      "cover_url": "https://images.unsplash.com/photo-1453733190148-c44698c26588?w=200&auto=format&fit=crop&q=60",
+      "description": "Middle school algebra, linear equations, and basic geometry coordinate grids.",
+      "chapters": [
+        {
+          "chapter_id": "ch-math8-1",
+          "title": "Linear Equations and Solving Techniques",
+          "content": "A linear equation is an algebraic equation of degree 1, meaning that the highest power of any variable is 1. Standard form of a linear equation in one variable is ax + b = 0, where a and b are real numbers and a is not equal to zero. To solve a linear equation, apply the same inverse operations to both sides of the equation (addition, subtraction, multiplication, or division) to isolate the variable x."
+        }
+      ]
+    },
+    {
+      "book_id": "bk-math-10",
+      "title": "Mathematics Grade 10",
+      "author": "Sarah Jenkins, MSc",
+      "grade_level": "Grade 10",
+      "subject": "Mathematics",
+      "cover_url": "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=200&auto=format&fit=crop&q=60",
+      "description": "High school trigonometry, quadratic equations, vertex forms, and parabola graphing guides.",
+      "chapters": [
+        {
+          "chapter_id": "ch-math10-1",
+          "title": "Trigonometric Identities and Pythagoras",
+          "content": "Trigonometry is the branch of mathematics that studies relationships between side lengths and angles of triangles. The Pythagorean theorem states that in a right-angled triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides (a^2 + b^2 = c^2). Standard trigonometric functions include sine (opposite/hypotenuse), cosine (adjacent/hypotenuse), and tangent (opposite/adjacent). Fundamental trigonometric identities include: sin^2(theta) + cos^2(theta) = 1."
+        }
+      ]
+    },
+    {
+      "book_id": "bk-eng-7",
+      "title": "English Grammar Grade 7",
+      "author": "Linda Sterling, PhD",
+      "grade_level": "Grade 7",
+      "subject": "English",
+      "cover_url": "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=200&auto=format&fit=crop&q=60",
+      "description": "Middle school english syntax, sentence building, and the parts of speech.",
+      "chapters": [
+        {
+          "chapter_id": "ch-eng7-1",
+          "title": "The Parts of Speech and Sentence Structure",
+          "content": "Every word in the English language belongs to one of eight parts of speech, which define its grammatical role in a sentence. These are: nouns (naming people, places, things), pronouns (replacing nouns), verbs (expressing action or state of being), adjectives (describing nouns), adverbs (modifying verbs, adjectives, or other adverbs), prepositions (showing relationships), conjunctions (connecting words or clauses), and interjections (expressing strong emotion). A complete sentence must contain a subject and a predicate verb."
+        }
+      ]
+    },
+    {
+      "book_id": "bk-ict",
+      "title": "ICT Fundamentals",
+      "author": "Mark Sterling, PhD",
+      "grade_level": "High School",
+      "subject": "ICT",
+      "cover_url": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&auto=format&fit=crop&q=60",
+      "description": "Introductory computer science, CPU architecture, memory types, and local network setups.",
+      "chapters": [
+        {
+          "chapter_id": "ch-ict-1",
+          "title": "Introduction to Computer Systems and Hardware",
+          "content": "Information and Communications Technology (ICT) refers to the diverse set of technological tools and resources used to transmit, store, create, or exchange information. A computer system consists of hardware (physical components) and software (instructions). The Central Processing Unit (CPU) is the brain of the computer, executing instructions. Random Access Memory (RAM) provides temporary, volatile workspace for active programs, while hard disk drives and SSDs provide non-volatile long-term storage."
+        }
+      ]
+    },
+    {
+      "book_id": "bk-world-hist",
+      "title": "World History Essentials",
+      "author": "Emily Vance, MA",
+      "grade_level": "High School",
+      "subject": "History",
+      "cover_url": "https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=200&auto=format&fit=crop&q=60",
+      "description": "A study of global transformations from the 18th century forward, focusing on the World Wars.",
+      "chapters": [
+        {
+          "chapter_id": "ch-hist-1",
+          "title": "The World Wars and Global Treaties",
+          "content": "World War I (1914-1918) and World War II (1939-1945) were global conflicts that dramatically reshaped national borders and political alliances. World War I was triggered by the assassination of Archduke Franz Ferdinand and ended with the Treaty of Versailles, creating the League of Nations. World War II resulted from the rise of totalitarian regimes in Germany, Italy, and Japan. It concluded with the Allied victory, leading to the creation of the United Nations to prevent future global wars."
+        }
+      ]
+    },
+    {
+      "book_id": "bk-geo",
+      "title": "Geography Essentials",
+      "author": "Julian Mercer",
+      "grade_level": "Middle School",
+      "subject": "Geography",
+      "cover_url": "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=200&auto=format&fit=crop&q=60",
+      "description": "Explores physical geography, earth's interior structure, and tectonic plates movement.",
+      "chapters": [
+        {
+          "chapter_id": "ch-geo-1",
+          "title": "Earth's Interior Layers and Plate Tectonics",
+          "content": "Physical geography studies the natural features of the Earth. The Earth is divided into three primary layers based on composition: the crust (outer rocky shell), the mantle (dense silicate layer), and the core (metallic center composed of an outer liquid core and an inner solid iron-nickel core). Plate tectonics is the scientific theory explaining how the Earth's lithosphere is divided into several large plates that move slowly over the asthenosphere, causing earthquakes, volcanoes, and mountain ranges."
+        }
+      ]
+    },
+    {
+      "book_id": "bk-kg-abc",
+      "title": "Alphabet Learning",
+      "author": "Emily Vance, MA",
+      "grade_level": "KG",
+      "subject": "English",
+      "cover_url": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=200&auto=format&fit=crop&q=60",
+      "description": "Kindergarten alphabet phonics, letters learning, and simple spelling drills.",
+      "chapters": [
+        {
+          "chapter_id": "ch-kgabc-1",
+          "title": "The Alphabet and Phonics Song",
+          "content": "The English alphabet contains 26 letters, divided into vowels (A, E, I, O, U) and consonants. Phonics teaches children the sounds that letters make. For example, A says \"ah\" as in Apple. B says \"buh\" as in Ball. C says \"cuh\" as in Cat. D says \"duh\" as in Dog. Learning these sounds helps children blend letters together to read simple three-letter words."
+        }
+      ]
+    },
+    {
+      "book_id": "bk-kg-num",
+      "title": "Numbers and Counting",
+      "author": "Sarah Jenkins, MSc",
+      "grade_level": "KG",
+      "subject": "Mathematics",
+      "cover_url": "https://images.unsplash.com/photo-1518133680790-398573042988?w=200&auto=format&fit=crop&q=60",
+      "description": "Fun counting games, basic digits from 1 to 20, and counting symbols.",
+      "chapters": [
+        {
+          "chapter_id": "ch-kgnum-1",
+          "title": "Counting 1 to 10 with Shapes",
+          "content": "Counting is matching a number to each item in a group. Let's count: 1 star, 2 apples, 3 squares, 4 triangles, 5 circles, 6 bananas, 7 flowers, 8 balloons, 9 dots, and 10 fingers. Practicing counting every day helps children develop primary number sense, paving the way for simple addition and subtraction math operations."
+        }
+      ]
+    },
+    {
+      "book_id": "bk-kg-shape",
+      "title": "Shapes and Colors",
+      "author": "Linda Sterling, PhD",
+      "grade_level": "KG",
+      "subject": "Art",
+      "cover_url": "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=200&auto=format&fit=crop&q=60",
+      "description": "Learning primary colors, identifying basic shapes, and drawing exercises.",
+      "chapters": [
+        {
+          "chapter_id": "ch-kgshape-1",
+          "title": "Primary Colors and Geometric Shapes",
+          "content": "Shapes and colors are all around us! The three primary colors are Red, Blue, and Yellow. We can mix red and yellow to make Orange, blue and yellow to make Green, and red and blue to make Purple. Geometric shapes include the Circle (round like a ball), the Square (four equal sides), and the Triangle (three sides and three corners)."
+        }
+      ]
+    },
+    {
+      "book_id": "bk-kg-read",
+      "title": "Basic Reading",
+      "author": "Linda Sterling, PhD",
+      "grade_level": "KG",
+      "subject": "English",
+      "cover_url": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=200&auto=format&fit=crop&q=60",
+      "description": "First steps in reading simple sentences with phonics and sight words.",
+      "chapters": [
+        {
+          "chapter_id": "ch-kgread-1",
+          "title": "My First Sentences and Sight Words",
+          "content": "Let's practice reading! \"The cat is fat. The cat sat on the red mat. A big dog ran after the fat cat. The dog is brown. The cat ran up the tall tree.\" Reading short sentences with sight words like \"the\", \"is\", \"on\", \"and\", \"a\" increases word recognition and confidence for kindergarten learners."
+        }
+      ]
+    }
+  ],
+  "readingProgress": [],
+  "bookmarks": [],
+  "aiInteractionLogs": [
+    {
+      "log_id": "ail-wvh2sopbm",
+      "student_id": "std-1",
+      "student_name": "Alex Pendelton",
+      "grade": "Grade 10",
+      "class_name": "Grade 10-A",
+      "question": "Provide a concise, comprehensive summary of the chapter \"Classification and Five Kingdoms\" with key terms, core historical/scientific facts, and a study cheat-sheet.",
+      "answer": "Hello! It is a pleasure to assist you with your studies today. As a Grade 10 student, mastering the foundational concepts of biological classification is essential for your academic journey in the sciences. \n\nBased strictly on your digital library textbook, **Biology Grade 9, Chapter: Classification and Five Kingdoms**, here is a sophisticated, comprehensive summary, a breakdown of core scientific facts, and a study cheat-sheet designed to support your learning.\n\n---\n\n### **Chapter Summary**\nThis chapter provides a rigorous academic overview of systematic biology, focusing on **taxonomy**—the branch of science dedicated to the classification of organisms. It outlines the division of Earth's diverse life forms into **five main kingdoms** and explains the standardized system of **binomial nomenclature** developed to precisely identify distinct species. Finally, the chapter highlights the ecological significance of **biodiversity** in maintaining global environmental equilibrium.\n\n---\n\n### **Key Terms & Core Scientific/Historical Facts**\n\n*   **Taxonomy:** The precise scientific branch of study concerned with the classification of organisms.\n*   **The Five Kingdoms of Life:** The primary taxonomic categories into which all living organisms are classified:\n    1. *Monera*\n    2. *Protista*\n    3. *Fungi*\n    4. *Plantae*\n    5. *Animalia*\n*   **Carl Linnaeus & Binomial Nomenclature:** Historically, the scientist Carl Linnaeus created the \"binomial nomenclature\" system. This system assigns a unique, two-part scientific name to every individual species. The name is composed of:\n    1. The **genus** name (first part).\n    2. The **species identifier** (second part).\n*   **Biodiversity:** The scientific term for the variety of life forms existing on Earth. It serves as a critical biological determinant for overall ecosystem stability and health.\n\n---\n\n### **Study Cheat-Sheet**\n\n| Concept | Core Definition / Key takeaway |\n| :--- | :--- |\n| **Taxonomy** | Science of classification. |\n| **Five Kingdoms** | Monera, Protista, Fungi, Plantae, Animalia. |\n| **Binomial Nomenclature** | Created by **Carl Linnaeus**; Name format: **Genus** + **Species identifier**. |\n| **Biodiversity** | Variety of life forms on Earth; essential for **ecosystem stability & health**. |\n\n---\n*Source: Biology Grade 9, Chapter: Classification and Five Kingdoms*\n\nKeep up the excellent work in your biology studies! Let me know if you need any further analysis of this chapter.",
+      "referenced_books": [
+        {
+          "book_id": "bk-bio-9",
+          "title": "Biology Grade 9",
+          "chapter": "Classification and Five Kingdoms"
+        }
+      ],
+      "created_at": "2026-07-01T11:16:00.159Z"
+    }
+  ],
+  "classroomCameras": [
+    {
+      "camera_id": "cam-101",
+      "name": "Room 101 Front Cam",
+      "room_number": "101",
+      "status": "INACTIVE"
+    },
+    {
+      "camera_id": "cam-lab",
+      "name": "Science Lab B Wide-Angle",
+      "room_number": "Lab B",
+      "status": "INACTIVE"
+    },
+    {
+      "camera_id": "cam-aud",
+      "name": "Auditorium Main Stage",
+      "room_number": "Auditorium",
+      "status": "INACTIVE"
+    }
+  ],
+  "liveSessions": [
+    {
+      "session_id": "live-1",
+      "course_id": "crs-sci",
+      "course_name": "Physics & Mechanics",
+      "teacher_id": "tch-2",
+      "teacher_name": "Prof. Helen Myers",
+      "class_name": "Grade 10-A",
+      "status": "LIVE",
+      "started_at": "2026-07-01T09:50:54.979Z",
+      "camera_id": "cam-101",
+      "active_viewers": []
+    },
+    {
+      "session_id": "live-50u0lh8wq",
+      "course_id": "crs-math",
+      "course_name": "Advanced Algebra II",
+      "teacher_id": "tch-1",
+      "teacher_name": "Dr. Robert Carter",
+      "class_name": "Grade 10-A",
+      "status": "ENDED",
+      "started_at": "2026-07-01T10:58:12.067Z",
+      "camera_id": "cam-101",
+      "active_viewers": [],
+      "ended_at": "2026-07-01T10:58:17.075Z",
+      "video_url": "https://www.w3schools.com/html/mov_bbb.mp4"
+    },
+    {
+      "session_id": "live-fnu1e8eov",
+      "course_id": "crs-math",
+      "course_name": "Advanced Algebra II",
+      "teacher_id": "tch-1",
+      "teacher_name": "Dr. Robert Carter",
+      "class_name": "Grade 10-A",
+      "status": "ENDED",
+      "started_at": "2026-07-01T11:03:57.885Z",
+      "camera_id": "cam-101",
+      "active_viewers": [],
+      "ended_at": "2026-07-01T11:25:36.578Z",
+      "video_url": "https://www.w3schools.com/html/mov_bbb.mp4"
+    },
+    {
+      "session_id": "live-87qmzmgt4",
+      "course_id": "crs-math",
+      "course_name": "Advanced Algebra II",
+      "teacher_id": "tch-1",
+      "teacher_name": "Dr. Robert Carter",
+      "class_name": "Grade 10-A",
+      "status": "ENDED",
+      "started_at": "2026-07-01T11:26:42.144Z",
+      "camera_id": "cam-101",
+      "active_viewers": [],
+      "ended_at": "2026-07-01T11:27:01.139Z",
+      "video_url": "https://www.w3schools.com/html/mov_bbb.mp4"
+    }
+  ],
+  "liveAttendanceLogs": [
+    {
+      "log_id": "lal-4ylwc3ztm",
+      "session_id": "live-1",
+      "student_id": "std-1",
+      "student_name": "Alex Pendelton",
+      "joined_at": "2026-07-01T11:14:21.268Z",
+      "watched_duration_seconds": 25,
+      "marked_present": false
+    }
+  ],
+  "availableSections": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ]
+}

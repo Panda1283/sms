@@ -27,6 +27,7 @@ export interface User {
   password?: string; // Hashed password
   role: UserRole;
   created_at: string;
+  photo_url?: string;
 }
 
 export interface Student {

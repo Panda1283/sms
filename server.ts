@@ -171,7 +171,8 @@ async function startServer() {
           id: user.id,
           fullname: user.fullname,
           email: user.email,
-          role: user.role
+          role: user.role,
+          photo_url: user.photo_url
         }
       });
     } catch (err: any) {
@@ -202,10 +203,40 @@ async function startServer() {
         fullname: user.fullname,
         email: user.email,
         role: user.role,
-        created_at: user.created_at
+        created_at: user.created_at,
+        photo_url: user.photo_url
       },
       profile
     });
+  });
+
+  // Update Profile Picture
+  app.put('/api/auth/profile-picture', authenticateJWT, (req: AuthRequest, res: Response) => {
+    try {
+      const { photo_url } = req.body;
+      if (!photo_url) {
+        return res.status(400).json({ error: 'photo_url is required' });
+      }
+
+      const updatedUser = db.updateUser(req.user!.id, { photo_url });
+      if (!updatedUser) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      res.json({
+        message: 'Profile picture updated successfully',
+        user: {
+          id: updatedUser.id,
+          fullname: updatedUser.fullname,
+          email: updatedUser.email,
+          role: updatedUser.role,
+          created_at: updatedUser.created_at,
+          photo_url: updatedUser.photo_url
+        }
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
   });
 
   // Register
@@ -577,11 +608,11 @@ async function startServer() {
   });
 
   // 10. NOTIFICATIONS/ANNOUNCEMENTS APIS
-  app.get(['/api/notifications', '/api/announcements', '/api/updates', '/api/bulletins'], authenticateJWT, (req: AuthRequest, res: Response) => {
+  app.get(['/api/notifications', '/api/announcements', '/api/updates', '/api/bulletins', '/api/notices', '/api/memos', '/api/board-messages'], authenticateJWT, (req: AuthRequest, res: Response) => {
     res.json(db.getAllNotifications());
   });
 
-  app.post(['/api/notifications', '/api/announcements', '/api/updates', '/api/bulletins'], authenticateJWT, authorizeRoles(UserRole.ADMIN), (req: AuthRequest, res: Response) => {
+  app.post(['/api/notifications', '/api/announcements', '/api/updates', '/api/bulletins', '/api/notices', '/api/memos', '/api/board-messages'], authenticateJWT, authorizeRoles(UserRole.ADMIN), (req: AuthRequest, res: Response) => {
     try {
       const { title, message, recipient } = req.body;
       if (!title || !message || !recipient) {
@@ -595,7 +626,7 @@ async function startServer() {
     }
   });
 
-  app.delete(['/api/notifications/:id', '/api/announcements/:id', '/api/updates/:id', '/api/bulletins/:id'], authenticateJWT, authorizeRoles(UserRole.ADMIN), (req: AuthRequest, res: Response) => {
+  app.delete(['/api/notifications/:id', '/api/announcements/:id', '/api/updates/:id', '/api/bulletins/:id', '/api/notices/:id', '/api/memos/:id', '/api/board-messages/:id'], authenticateJWT, authorizeRoles(UserRole.ADMIN), (req: AuthRequest, res: Response) => {
     const success = db.deleteNotification(req.params.id);
     if (!success) return res.status(404).json({ error: 'Notification not found' });
     res.json({ message: 'Notification deleted successfully' });

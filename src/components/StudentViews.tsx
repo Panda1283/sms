@@ -12,7 +12,8 @@ import {
   AlertTriangle, CreditCard, Award, ChevronRight, TrendingUp, RefreshCw,
   BookOpen, Video, CheckSquare, MessageSquare, Send, Bookmark, Trash,
   ChevronDown, BookMarked, Sparkles, Brain, GraduationCap, Play, PlayCircle,
-  Clock3, Users, Upload, ListTodo, Download, RefreshCw as RefreshIcon, VideoOff
+  Clock3, Users, Upload, ListTodo, Download, RefreshCw as RefreshIcon, VideoOff,
+  Timer, Hourglass
 } from 'lucide-react';
 
 interface StudentViewsProps {
@@ -39,6 +40,306 @@ export default function StudentViews({ activeTab }: StudentViewsProps) {
     }
   });
   const [editingTargetCourseId, setEditingTargetCourseId] = useState<string | null>(null);
+
+  // --- STATE FOR ONLINE ACTIVE QUIZZES & TESTS WITH COUNTDOWN TIMERS ---
+  const [quizzes, setQuizzes] = useState<any[]>(() => {
+    try {
+      const saved = localStorage.getItem('student_active_quizzes');
+      if (saved) {
+        return JSON.parse(saved);
+      }
+    } catch (e) {
+      console.error('Error parsing stored quizzes', e);
+    }
+    // Default seeded active quizzes & tests
+    return [
+      {
+        id: 'qz-math',
+        title: 'Quadratic Equations Speed Run',
+        subject: 'Mathematics & Calculus',
+        courseId: 'crs-math',
+        durationSeconds: 600, // 10 minutes
+        timeLeft: 600,
+        status: 'NOT_STARTED',
+        questions: [
+          {
+            id: 'q1',
+            question: 'What are the roots of the quadratic equation x² - 5x + 6 = 0?',
+            options: ['x = 2 and x = 3', 'x = 1 and x = 6', 'x = -2 and x = -3', 'x = 0 and x = 5'],
+            correctAnswer: 0
+          },
+          {
+            id: 'q2',
+            question: 'What is the discriminant of the quadratic equation ax² + bx + c = 0?',
+            options: ['b² - 4ac', '2a / -b', 'b² + 4ac', '-b ± √D'],
+            correctAnswer: 0
+          },
+          {
+            id: 'q3',
+            question: 'If the discriminant of a quadratic equation is negative, the roots are...',
+            options: ['Real and distinct', 'Real and equal', 'Complex / imaginary', 'Undefined'],
+            correctAnswer: 2
+          }
+        ]
+      },
+      {
+        id: 'qz-phys',
+        title: 'Newtonian Laws Assessment',
+        subject: 'Physics & Mechanics',
+        courseId: 'crs-sci',
+        durationSeconds: 900, // 15 minutes
+        timeLeft: 900,
+        status: 'NOT_STARTED',
+        questions: [
+          {
+            id: 'q1',
+            question: "Which of Newton's laws states that for every action, there is an equal and opposite reaction?",
+            options: ['First Law', 'Second Law', 'Third Law', 'Law of Gravitation'],
+            correctAnswer: 2
+          },
+          {
+            id: 'q2',
+            question: 'What is the net force required to accelerate a 5kg mass at 3 m/s²?',
+            options: ['1.67 N', '15 N', '8 N', '45 N'],
+            correctAnswer: 1
+          },
+          {
+            id: 'q3',
+            question: 'An object maintains a constant velocity unless acted upon by a net external force. This is also known as the Law of...',
+            options: ['Acceleration', 'Inertia', 'Gravity', 'Thermodynamics'],
+            correctAnswer: 1
+          }
+        ]
+      },
+      {
+        id: 'qz-cs',
+        title: 'Algorithms & Complexity Quiz',
+        subject: 'Advanced Algorithms',
+        courseId: 'crs-cs',
+        durationSeconds: 300, // 5 minutes
+        timeLeft: 300,
+        status: 'NOT_STARTED',
+        questions: [
+          {
+            id: 'q1',
+            question: 'What is the average time complexity of Quick Sort?',
+            options: ['O(n)', 'O(n log n)', 'O(n²)', 'O(log n)'],
+            correctAnswer: 1
+          },
+          {
+            id: 'q2',
+            question: 'Which data structure operates on a Last In, First Out (LIFO) basis?',
+            options: ['Queue', 'Stack', 'Binary Tree', 'Hash Map'],
+            correctAnswer: 1
+          },
+          {
+            id: 'q3',
+            question: 'What is the worst-case space complexity of a standard Depth-First Search (DFS) on a tree of height h?',
+            options: ['O(1)', 'O(h)', 'O(2^h)', 'O(log h)'],
+            correctAnswer: 1
+          }
+        ]
+      }
+    ];
+  });
+
+  const [activeQuizId, setActiveQuizId] = useState<string | null>(null);
+  const [selectedAnswers, setSelectedAnswers] = useState<Record<string, number>>({});
+  const [quizResults, setQuizResults] = useState<any | null>(null);
+
+  // Sync quizzes to localStorage
+  useEffect(() => {
+    localStorage.setItem('student_active_quizzes', JSON.stringify(quizzes));
+  }, [quizzes]);
+
+  // Real-time countdown timer ticking logic
+  useEffect(() => {
+    if (!activeQuizId) return;
+
+    const interval = setInterval(() => {
+      setQuizzes(prevQuizzes => {
+        let isTimeUp = false;
+        const updated = prevQuizzes.map(qz => {
+          if (qz.id === activeQuizId && qz.status === 'IN_PROGRESS') {
+            if (qz.timeLeft <= 1) {
+              isTimeUp = true;
+              return { ...qz, timeLeft: 0, status: 'COMPLETED' };
+            }
+            return { ...qz, timeLeft: qz.timeLeft - 1 };
+          }
+          return qz;
+        });
+
+        if (isTimeUp) {
+          clearInterval(interval);
+          // Auto-submit outside state transitions
+          setTimeout(() => {
+            handleAutoSubmitQuiz(activeQuizId);
+          }, 10);
+        }
+
+        return updated;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [activeQuizId]);
+
+  const handleStartQuiz = (quizId: string) => {
+    setQuizzes(prev => prev.map(q => {
+      if (q.id === quizId) {
+        return { ...q, status: 'IN_PROGRESS', timeLeft: q.durationSeconds };
+      }
+      return q;
+    }));
+    setSelectedAnswers({});
+    setQuizResults(null);
+    setActiveQuizId(quizId);
+  };
+
+  const handleSelectAnswer = (questionId: string, optionIndex: number) => {
+    setSelectedAnswers(prev => ({
+      ...prev,
+      [questionId]: optionIndex
+    }));
+  };
+
+  const handleAutoSubmitQuiz = (quizId: string) => {
+    setQuizzes(prevQuizzes => {
+      const quiz = prevQuizzes.find(q => q.id === quizId);
+      if (!quiz) return prevQuizzes;
+
+      let correctCount = 0;
+      quiz.questions.forEach((q: any) => {
+        const selected = selectedAnswers[q.id];
+        if (selected === q.correctAnswer) {
+          correctCount++;
+        }
+      });
+
+      const scorePct = Math.round((correctCount / quiz.questions.length) * 100);
+      const letterGrade = scorePct >= 90 ? 'A' : scorePct >= 80 ? 'B' : scorePct >= 70 ? 'C' : scorePct >= 60 ? 'D' : 'F';
+
+      // Save as a graded detailed record dynamically so it populates student-grades
+      const newGradeRecord: GradeDetailed = {
+        grade_id: `grd-qz-${Math.random().toString(36).substr(2, 9)}`,
+        student_id: profile?.student_id || 'std-1',
+        student_name: user?.fullname || 'Student',
+        course_id: quiz.courseId,
+        course_name: quiz.subject,
+        score: scorePct,
+        grade: letterGrade
+      };
+
+      setGrades(prev => [newGradeRecord, ...prev]);
+
+      setQuizResults({
+        quizTitle: quiz.title,
+        subject: quiz.subject,
+        correctCount,
+        totalQuestions: quiz.questions.length,
+        scorePct,
+        letterGrade,
+        autoSubmitted: true,
+        questions: quiz.questions,
+        studentAnswers: { ...selectedAnswers }
+      });
+
+      setActiveQuizId(null);
+      setSelectedAnswers({});
+
+      return prevQuizzes.map(q => {
+        if (q.id === quizId) {
+          return {
+            ...q,
+            status: 'COMPLETED',
+            timeLeft: 0,
+            score: scorePct,
+            totalScore: 100,
+            completedAt: new Date().toLocaleTimeString()
+          };
+        }
+        return q;
+      });
+    });
+  };
+
+  const handleManualSubmitQuiz = (quizId: string) => {
+    const quiz = quizzes.find(q => q.id === quizId);
+    if (!quiz) return;
+
+    let correctCount = 0;
+    quiz.questions.forEach((q: any) => {
+      const selected = selectedAnswers[q.id];
+      if (selected === q.correctAnswer) {
+        correctCount++;
+      }
+    });
+
+    const scorePct = Math.round((correctCount / quiz.questions.length) * 100);
+    const letterGrade = scorePct >= 90 ? 'A' : scorePct >= 80 ? 'B' : scorePct >= 70 ? 'C' : scorePct >= 60 ? 'D' : 'F';
+
+    // Update quiz status
+    setQuizzes(prev => prev.map(q => {
+      if (q.id === quizId) {
+        return {
+          ...q,
+          status: 'COMPLETED',
+          score: scorePct,
+          totalScore: 100,
+          completedAt: new Date().toLocaleTimeString()
+        };
+      }
+      return q;
+    }));
+
+    // Create a grade record
+    const newGradeRecord: GradeDetailed = {
+      grade_id: `grd-qz-${Math.random().toString(36).substr(2, 9)}`,
+      student_id: profile?.student_id || 'std-1',
+      student_name: user?.fullname || 'Student',
+      course_id: quiz.courseId,
+      course_name: quiz.subject,
+      score: scorePct,
+      grade: letterGrade
+    };
+
+    setGrades(prev => [newGradeRecord, ...prev]);
+
+    setQuizResults({
+      quizTitle: quiz.title,
+      subject: quiz.subject,
+      correctCount,
+      totalQuestions: quiz.questions.length,
+      scorePct,
+      letterGrade,
+      autoSubmitted: false,
+      questions: quiz.questions,
+      studentAnswers: { ...selectedAnswers }
+    });
+
+    setActiveQuizId(null);
+    setSelectedAnswers({});
+  };
+
+  const handleResetQuiz = (quizId: string) => {
+    setQuizzes(prev => prev.map(q => {
+      if (q.id === quizId) {
+        return {
+          ...q,
+          status: 'NOT_STARTED',
+          timeLeft: q.durationSeconds,
+          score: undefined,
+          completedAt: undefined
+        };
+      }
+      return q;
+    }));
+    if (activeQuizId === quizId) {
+      setActiveQuizId(null);
+    }
+    setQuizResults(null);
+  };
 
   const handleUpdateTarget = (courseId: string, val: number) => {
     const updated = { ...targetGoals, [courseId]: val };
@@ -739,6 +1040,509 @@ export default function StudentViews({ activeTab }: StudentViewsProps) {
               </div>
             </div>
           </div>
+
+          {/* Active Quizzes & Tests Countdown Module */}
+          <div className="mt-6 bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-5">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="p-1.5 rounded-lg bg-indigo-50 text-indigo-600">
+                    <Timer size={18} className="animate-pulse" />
+                  </span>
+                  <h3 className="font-extrabold text-slate-800 text-sm tracking-tight">Active Online Quizzes & Tests</h3>
+                </div>
+                <p className="text-xs text-slate-400 mt-1 leading-normal">
+                  Track real-time countdown clocks. Complete attempts to instantly update your academic profile.
+                </p>
+              </div>
+              <div className="flex items-center gap-1.5 bg-indigo-50 px-3 py-1.5 rounded-xl border border-indigo-100/50">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                <span className="text-[10px] font-bold font-mono text-indigo-700 uppercase">
+                  {quizzes.filter(q => q.status !== 'COMPLETED').length} Active Assessments
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {quizzes.map(quiz => {
+                const totalSec = quiz.durationSeconds;
+                const currentSec = quiz.timeLeft;
+                const ratio = currentSec / totalSec;
+                
+                // Styling presets
+                let timerStyle = {
+                  textClass: 'text-slate-500',
+                  bgClass: 'bg-slate-50 border-slate-100 text-slate-600',
+                  barClass: 'bg-slate-400',
+                  warningText: 'TIMER READY'
+                };
+                
+                if (quiz.status === 'IN_PROGRESS') {
+                  if (currentSec <= 60) {
+                    timerStyle = {
+                      textClass: 'text-rose-600 font-extrabold font-mono text-base animate-pulse',
+                      bgClass: 'bg-rose-50 border-rose-200 text-rose-700 animate-pulse',
+                      barClass: 'bg-rose-500 animate-pulse',
+                      warningText: '⚠️ CRITICAL COUNTDOWN'
+                    };
+                  } else if (currentSec <= 180) {
+                    timerStyle = {
+                      textClass: 'text-amber-600 font-bold font-mono text-base',
+                      bgClass: 'bg-amber-50 border-amber-200 text-amber-700',
+                      barClass: 'bg-amber-500',
+                      warningText: '⏳ TIME WARN'
+                    };
+                  } else {
+                    timerStyle = {
+                      textClass: 'text-emerald-600 font-bold font-mono text-base',
+                      bgClass: 'bg-emerald-50 border-emerald-200 text-emerald-700',
+                      barClass: 'bg-emerald-500',
+                      warningText: '🟢 ACTIVE ATTEMPT'
+                    };
+                  }
+                }
+
+                const mins = Math.floor(currentSec / 60);
+                const secs = currentSec % 60;
+                const formattedTime = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+                return (
+                  <div key={quiz.id} className="border border-slate-150 rounded-2xl p-5 bg-slate-50/50 hover:bg-slate-50/80 transition-all flex flex-col justify-between group relative overflow-hidden">
+                    {/* Visual glowing bar for active attempt */}
+                    {quiz.status === 'IN_PROGRESS' && (
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-amber-400 to-rose-500 animate-pulse" />
+                    )}
+
+                    <div>
+                      <div className="flex items-start justify-between gap-2 mb-3">
+                        <span className="text-[9px] uppercase font-bold font-mono tracking-wider bg-indigo-50 border border-indigo-100 text-indigo-700 px-2 py-0.5 rounded-lg">
+                          {quiz.subject}
+                        </span>
+                        
+                        {quiz.status === 'NOT_STARTED' && (
+                          <span className="text-[9px] uppercase font-bold font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-100">
+                            🟢 Ready
+                          </span>
+                        )}
+                        {quiz.status === 'IN_PROGRESS' && (
+                          <span className="text-[9px] uppercase font-bold font-mono text-rose-500 bg-rose-50 px-2 py-0.5 rounded-lg border border-rose-100 animate-pulse">
+                            🚨 Live Attempt
+                          </span>
+                        )}
+                        {quiz.status === 'COMPLETED' && (
+                          <span className="text-[9px] uppercase font-bold font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded-lg border border-slate-200">
+                            ✅ Done
+                          </span>
+                        )}
+                      </div>
+
+                      <h4 className="font-bold text-slate-800 text-sm tracking-tight mb-2 group-hover:text-indigo-600 transition-colors">
+                        {quiz.title}
+                      </h4>
+
+                      <div className="space-y-1.5 my-3.5">
+                        <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                          <HelpCircle size={13} className="text-slate-400" />
+                          <span>{quiz.questions.length} Questions Assessment</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                          <Hourglass size={13} className="text-slate-400" />
+                          <span>Time Limit: {Math.round(totalSec / 60)} minutes</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Timer Countdown Area */}
+                    <div className="mt-4 pt-4 border-t border-slate-150">
+                      {quiz.status === 'NOT_STARTED' && (
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="text-left">
+                            <p className="text-[9px] text-slate-400 font-mono font-bold uppercase">Ready Countdown</p>
+                            <p className="text-sm font-bold font-mono text-slate-700">{Math.round(totalSec / 60)}:00</p>
+                          </div>
+                          <button
+                            onClick={() => handleStartQuiz(quiz.id)}
+                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center gap-1.5 cursor-pointer animate-pulse"
+                          >
+                            <Play size={12} className="fill-white" />
+                            Begin Quiz
+                          </button>
+                        </div>
+                      )}
+
+                      {quiz.status === 'IN_PROGRESS' && (
+                        <div className="space-y-3">
+                          <div className={`flex items-center justify-between px-3 py-2 rounded-xl border ${timerStyle.bgClass}`}>
+                            <div className="flex items-center gap-1.5">
+                              <Timer size={14} className="animate-spin text-slate-400" style={{ animationDuration: '3s' }} />
+                              <span className="text-[9px] font-bold font-mono uppercase tracking-wider">
+                                {timerStyle.warningText}
+                              </span>
+                            </div>
+                            <span className={`font-mono font-extrabold text-base tracking-wider ${timerStyle.textClass}`}>
+                              {formattedTime}
+                            </span>
+                          </div>
+
+                          {/* Progress Line */}
+                          <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                            <div
+                              className={`h-full transition-all duration-1000 ${timerStyle.barClass}`}
+                              style={{ width: `${ratio * 100}%` }}
+                            />
+                          </div>
+
+                          <button
+                            onClick={() => setActiveQuizId(quiz.id)}
+                            className="w-full text-center py-2 border border-indigo-600/20 bg-indigo-50/40 text-indigo-700 hover:bg-indigo-600 hover:text-white font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                          >
+                            ✏️ Resume Attempt
+                          </button>
+                        </div>
+                      )}
+
+                      {quiz.status === 'COMPLETED' && (
+                        <div>
+                          <div className="flex items-center justify-between bg-slate-100/60 border border-slate-200/50 p-2.5 rounded-xl mb-3">
+                            <div className="text-left">
+                              <p className="text-[8px] text-slate-400 font-mono uppercase">Your Score</p>
+                              <p className="text-xs font-bold text-slate-750 font-mono">
+                                {quiz.score}% (Grade {quiz.score >= 90 ? 'A' : quiz.score >= 80 ? 'B' : quiz.score >= 70 ? 'C' : 'D'})
+                              </p>
+                            </div>
+                            <span className="text-[9px] font-mono text-slate-400">
+                              Done at {quiz.completedAt || 'Recently'}
+                            </span>
+                          </div>
+
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => {
+                                const correct = Math.round((quiz.score / 100) * quiz.questions.length);
+                                setQuizResults({
+                                  quizTitle: quiz.title,
+                                  subject: quiz.subject,
+                                  correctCount: correct,
+                                  totalQuestions: quiz.questions.length,
+                                  scorePct: quiz.score,
+                                  letterGrade: quiz.score >= 90 ? 'A' : quiz.score >= 80 ? 'B' : quiz.score >= 70 ? 'C' : 'D',
+                                  autoSubmitted: false,
+                                  questions: quiz.questions,
+                                  studentAnswers: {}
+                                });
+                              }}
+                              className="flex-1 py-1.5 border border-slate-200 text-slate-600 hover:bg-slate-100 text-[10px] font-bold rounded-lg transition-colors cursor-pointer text-center"
+                            >
+                              📊 View Results
+                            </button>
+                            <button
+                              onClick={() => handleResetQuiz(quiz.id)}
+                              className="py-1.5 px-2.5 border border-amber-200 text-amber-700 hover:bg-amber-50 text-[10px] font-bold rounded-lg transition-colors cursor-pointer text-center"
+                              title="Retake assessment for testing"
+                            >
+                              🔄 Retake
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* IMMERSIVE QUIZ ASSESSMENT PANELS */}
+          {activeQuizId && (
+            <div className="fixed inset-0 z-[1000] bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+              {(() => {
+                const quiz = quizzes.find(q => q.id === activeQuizId);
+                if (!quiz) return null;
+
+                const currentSec = quiz.timeLeft;
+                const totalSec = quiz.durationSeconds;
+                const ratio = currentSec / totalSec;
+
+                let timerStyle = {
+                  textClass: 'text-slate-100',
+                  bgClass: 'bg-slate-800 border-slate-700',
+                  barClass: 'bg-indigo-500',
+                  pulseClass: '',
+                  warningText: 'TIMER ACTIVE'
+                };
+
+                if (currentSec <= 60) {
+                  timerStyle = {
+                    textClass: 'text-rose-500 font-extrabold text-2xl scale-110',
+                    bgClass: 'bg-rose-950/90 border-rose-800 text-rose-200 animate-pulse',
+                    barClass: 'bg-rose-500 animate-pulse',
+                    pulseClass: 'animate-pulse bg-rose-500/15',
+                    warningText: '⚠️ CRITICAL - FINISH NOW'
+                  };
+                } else if (currentSec <= 180) {
+                  timerStyle = {
+                    textClass: 'text-amber-400 font-bold text-xl',
+                    bgClass: 'bg-amber-950/80 border-amber-800 text-amber-200',
+                    barClass: 'bg-amber-500',
+                    pulseClass: '',
+                    warningText: '⏳ WARNING - TIME RUNNING LOW'
+                  };
+                } else {
+                  timerStyle = {
+                    textClass: 'text-emerald-400 font-bold text-lg',
+                    bgClass: 'bg-emerald-950/80 border-emerald-800 text-emerald-200',
+                    barClass: 'bg-emerald-500',
+                    pulseClass: '',
+                    warningText: '🟢 ASSESSMENT TIME REMAINING'
+                  };
+                }
+
+                const mins = Math.floor(currentSec / 60);
+                const secs = currentSec % 60;
+                const formattedTime = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+                return (
+                  <div className={`w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden relative flex flex-col max-h-[90vh] transition-all duration-300 ${timerStyle.pulseClass}`}>
+                    
+                    {/* Top real-time countdown timer bar */}
+                    <div className="bg-slate-900 text-white p-5 border-b border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                      <div>
+                        <span className="text-[10px] font-bold font-mono text-indigo-400 bg-indigo-950/60 border border-indigo-900/50 px-2.5 py-0.5 rounded-lg uppercase tracking-wider">
+                          {quiz.subject}
+                        </span>
+                        <h3 className="text-base font-extrabold text-slate-100 mt-1">{quiz.title}</h3>
+                      </div>
+
+                      {/* Floating countdown badge */}
+                      <div className={`flex flex-col items-center px-4 py-2 rounded-2xl border ${timerStyle.bgClass}`}>
+                        <span className="text-[9px] font-bold font-mono tracking-widest text-slate-400 uppercase leading-none mb-1">
+                          {timerStyle.warningText}
+                        </span>
+                        <span className={`font-mono font-black tracking-widest ${timerStyle.textClass}`}>
+                          {formattedTime}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div className="w-full bg-slate-800 h-2">
+                      <div
+                        className={`h-full transition-all duration-1000 ${timerStyle.barClass}`}
+                        style={{ width: `${ratio * 100}%` }}
+                      />
+                    </div>
+
+                    {/* Questions Body */}
+                    <div className="p-6 overflow-y-auto space-y-6 flex-1">
+                      {quiz.questions.map((q: any, qIdx: number) => {
+                        const selectedOpt = selectedAnswers[q.id];
+                        return (
+                          <div key={q.id} className="border border-slate-150 p-5 rounded-2xl bg-slate-50/50 space-y-3">
+                            <div className="flex items-start gap-2.5">
+                              <span className="flex items-center justify-center w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 font-bold font-mono text-xs shrink-0 mt-0.5">
+                                {qIdx + 1}
+                              </span>
+                              <p className="font-semibold text-slate-800 text-sm leading-normal">
+                                {q.question}
+                              </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+                              {q.options.map((opt: string, optIdx: number) => {
+                                const isSelected = selectedOpt === optIdx;
+                                return (
+                                  <button
+                                    key={optIdx}
+                                    type="button"
+                                    onClick={() => handleSelectAnswer(q.id, optIdx)}
+                                    className={`w-full text-left p-3 rounded-xl border text-xs font-medium transition-all duration-150 flex items-center justify-between cursor-pointer ${
+                                      isSelected
+                                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-md'
+                                        : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
+                                    }`}
+                                  >
+                                    <span>{opt}</span>
+                                    <span className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${
+                                      isSelected
+                                        ? 'border-white bg-white/20'
+                                        : 'border-slate-300'
+                                    }`}>
+                                      {isSelected && <span className="w-2 h-2 rounded-full bg-white" />}
+                                    </span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Bottom Actions */}
+                    <div className="p-5 bg-slate-50 border-t border-slate-150 flex justify-between items-center gap-4">
+                      <p className="text-[10px] text-slate-400 font-sans italic">
+                        Answers are autosaved. Leaving the page does not pause the ticking exam clock.
+                      </p>
+
+                      <div className="flex items-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (confirm("Are you sure you want to pause your view? The live timer clock will continue ticking in the background!")) {
+                              setActiveQuizId(null);
+                            }
+                          }}
+                          className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold rounded-xl transition-all cursor-pointer"
+                        >
+                          Minimize View
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (confirm("Are you sure you want to finalize and submit your quiz attempt?")) {
+                              handleManualSubmitQuiz(quiz.id);
+                            }
+                          }}
+                          className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
+                        >
+                          Submit Assessment
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                );
+              })()}
+            </div>
+          )}
+
+          {/* ASSESSMENT RESULTS MODAL */}
+          {quizResults && (
+            <div className="fixed inset-0 z-[1000] bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+              <div className="w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden relative flex flex-col max-h-[85vh]">
+                
+                {/* Header */}
+                <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-6 relative">
+                  <div className="flex items-center gap-3">
+                    <span className="p-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 rounded-xl">
+                      <Award size={22} className="animate-bounce" />
+                    </span>
+                    <div>
+                      <span className="text-[9px] uppercase font-bold font-mono text-indigo-400">
+                        {quizResults.subject} Results
+                      </span>
+                      <h3 className="font-extrabold text-slate-100 text-base leading-snug">
+                        {quizResults.quizTitle}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => setQuizResults(null)}
+                    className="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                  >
+                    <VideoOff size={18} />
+                  </button>
+                </div>
+
+                {/* Score Summary Box */}
+                <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row items-center justify-around gap-4 bg-indigo-50/20">
+                  <div className="text-center">
+                    <p className="text-[10px] text-slate-400 uppercase font-mono font-bold">Grade Received</p>
+                    <p className="text-4xl font-black text-indigo-600 font-mono mt-1">{quizResults.letterGrade}</p>
+                  </div>
+                  
+                  <div className="h-10 w-[1px] bg-slate-200 hidden sm:block" />
+
+                  <div className="text-center">
+                    <p className="text-[10px] text-slate-400 uppercase font-mono font-bold">Accuracy Score</p>
+                    <p className="text-3xl font-extrabold text-slate-800 font-mono mt-1">{quizResults.scorePct}%</p>
+                  </div>
+
+                  <div className="h-10 w-[1px] bg-slate-200 hidden sm:block" />
+
+                  <div className="text-center">
+                    <p className="text-[10px] text-slate-400 uppercase font-mono font-bold">Comprehension</p>
+                    <p className="text-xs font-semibold text-slate-600 mt-2">
+                      {quizResults.correctCount} / {quizResults.totalQuestions} Correct
+                    </p>
+                  </div>
+                </div>
+
+                {/* Detailed Questions Review */}
+                <div className="p-6 overflow-y-auto space-y-4 flex-1 bg-slate-50/50">
+                  <h4 className="text-xs uppercase font-extrabold text-slate-500 font-mono tracking-wider mb-2">Review Your Answers</h4>
+                  
+                  {quizResults.questions.map((q: any, idx: number) => {
+                    const studentAnsIdx = quizResults.studentAnswers[q.id];
+                    const isCorrect = studentAnsIdx === q.correctAnswer;
+                    
+                    return (
+                      <div key={q.id} className="border border-slate-150 rounded-2xl p-4 bg-white space-y-2">
+                        <div className="flex items-start gap-2 justify-between">
+                          <p className="font-bold text-slate-800 text-xs leading-normal">
+                            {idx + 1}. {q.question}
+                          </p>
+                          {studentAnsIdx !== undefined ? (
+                            isCorrect ? (
+                              <span className="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-lg border border-emerald-100 shrink-0">
+                                ✓ Correct
+                              </span>
+                            ) : (
+                              <span className="text-[10px] bg-rose-50 text-rose-700 font-bold px-2 py-0.5 rounded-lg border border-rose-100 shrink-0">
+                                ✗ Incorrect
+                              </span>
+                            )
+                          ) : (
+                            <span className="text-[10px] bg-amber-50 text-amber-700 font-bold px-2 py-0.5 rounded-lg border border-amber-100 shrink-0">
+                              ⏱️ Completed
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-1.5 pt-1.5">
+                          {q.options.map((opt: string, optIdx: number) => {
+                            const isSelected = studentAnsIdx === optIdx;
+                            const isCorrectAnswer = optIdx === q.correctAnswer;
+                            
+                            let optClass = 'border-slate-150 bg-slate-50 text-slate-600';
+                            if (isSelected) {
+                              optClass = isCorrect ? 'border-emerald-500 bg-emerald-50 text-emerald-800 font-semibold' : 'border-rose-500 bg-rose-50 text-rose-800 font-semibold';
+                            } else if (isCorrectAnswer) {
+                              optClass = 'border-emerald-500 bg-emerald-50/50 text-emerald-800 font-medium';
+                            }
+
+                            return (
+                              <div key={optIdx} className={`border p-2 rounded-xl text-[11px] flex items-center justify-between ${optClass}`}>
+                                <span>{opt}</span>
+                                {isCorrectAnswer && (
+                                  <span className="text-[9px] uppercase font-bold text-emerald-600 font-mono shrink-0">
+                                    Correct Solution
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Footer */}
+                <div className="p-5 border-t border-slate-150 bg-slate-50 text-right">
+                  <button
+                    type="button"
+                    onClick={() => setQuizResults(null)}
+                    className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-md cursor-pointer transition-all"
+                  >
+                    Finish Review
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          )}
 
           {/* Subject Target Goals Tracker */}
           <div className="mt-6" id="student-subject-target-goals-tracker">

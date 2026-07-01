@@ -28,7 +28,7 @@ export class ApiService {
     // Map adblock-sensitive paths to clean keywords to bypass browser adblockers
     let mappedEndpoint = endpoint;
     if (endpoint.includes('notifications')) {
-      mappedEndpoint = mappedEndpoint.replace(/notifications/g, 'bulletins');
+      mappedEndpoint = mappedEndpoint.replace(/notifications/g, 'notices');
     }
     if (endpoint.includes('bookmarks')) {
       mappedEndpoint = mappedEndpoint.replace(/bookmarks/g, 'favs');

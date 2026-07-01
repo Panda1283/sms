@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactNode } from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { UserRole } from '../types/db';
 import { ApiService } from '../utils/api';
@@ -24,7 +24,9 @@ import {
   Check,
   Trash2,
   BellRing,
-  Info
+  Info,
+  Camera,
+  Upload
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -82,7 +84,13 @@ interface DashboardLayoutProps {
 }
 
 export default function DashboardLayout({ children, activeTab, setActiveTab }: DashboardLayoutProps) {
-  const { user, logout } = useAuth();
+  const { user, logout, refreshUser } = useAuth();
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [cameraActive, setCameraActive] = useState(false);
+  const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const [cameraError, setCameraError] = useState<string | null>(null);
+  const [savingPhoto, setSavingPhoto] = useState(false);
+  const [dragActive, setDragActive] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [notifications, setNotifications] = useState<any[]>([]);
   const [showCenter, setShowCenter] = useState(false);
@@ -246,6 +254,117 @@ export default function DashboardLayout({ children, activeTab, setActiveTab }: D
       case UserRole.STUDENT: return 'bg-sky-50 text-sky-700 border-sky-200';
       case UserRole.PARENT: return 'bg-amber-50 text-amber-700 border-amber-200';
       default: return 'bg-slate-50 text-slate-700';
+    }
+  };
+
+  const startCamera = async () => {
+    setCameraActive(true);
+    setCapturedImage(null);
+    setCameraError(null);
+    
+    setTimeout(async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: 400, height: 400, facingMode: 'user' }
+        });
+        const videoElement = document.getElementById('profile-webcam-stream') as HTMLVideoElement;
+        if (videoElement) {
+          videoElement.srcObject = stream;
+          videoElement.play();
+        }
+      } catch (err: any) {
+        console.error('Error starting webcam stream:', err);
+        setCameraError(err.message || 'Could not access browser camera. Please ensure permissions are granted.');
+        setCameraActive(false);
+      }
+    }, 150);
+  };
+
+  const stopCamera = () => {
+    const videoElement = document.getElementById('profile-webcam-stream') as HTMLVideoElement;
+    if (videoElement && videoElement.srcObject) {
+      const stream = videoElement.srcObject as MediaStream;
+      const tracks = stream.getTracks();
+      tracks.forEach(track => track.stop());
+      videoElement.srcObject = null;
+    }
+    setCameraActive(false);
+  };
+
+  const capturePhoto = () => {
+    const videoElement = document.getElementById('profile-webcam-stream') as HTMLVideoElement;
+    if (videoElement) {
+      const canvas = document.createElement('canvas');
+      const size = Math.min(videoElement.videoWidth, videoElement.videoHeight) || 400;
+      canvas.width = size;
+      canvas.height = size;
+      
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        const sx = (videoElement.videoWidth - size) / 2;
+        const sy = (videoElement.videoHeight - size) / 2;
+        
+        ctx.drawImage(
+          videoElement,
+          sx, sy, size, size,
+          0, 0, size, size
+        );
+        
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        setCapturedImage(dataUrl);
+        stopCamera();
+      }
+    }
+  };
+
+  const handlePhotoUpload = (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      alert('Please upload an image file (PNG, JPG, etc.)');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target?.result) {
+        setCapturedImage(e.target.result as string);
+        setCameraActive(false);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handlePhotoUpload(e.dataTransfer.files[0]);
+    }
+  };
+
+  const saveProfilePicture = async () => {
+    if (!capturedImage) return;
+    setSavingPhoto(true);
+    try {
+      await ApiService.put('/auth/profile-picture', { photo_url: capturedImage });
+      await refreshUser();
+      setCapturedImage(null);
+      setShowProfileModal(false);
+    } catch (err: any) {
+      console.error('Failed to save profile picture:', err);
+      alert(err.message || 'Failed to save profile picture. Please try again.');
+    } finally {
+      setSavingPhoto(false);
     }
   };
 
@@ -529,15 +648,32 @@ export default function DashboardLayout({ children, activeTab, setActiveTab }: D
             </div>
 
             {/* Profile Avatar Trigger */}
-            <div className="flex items-center gap-2.5 pl-2">
-              <div className="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 font-bold border-2 border-indigo-500/10 shadow-sm text-sm">
-                {user.fullname.charAt(0)}
-              </div>
+            <button
+              onClick={() => {
+                setShowProfileModal(true);
+                setCapturedImage(null);
+                setCameraActive(false);
+              }}
+              className="flex items-center gap-2.5 pl-2 hover:opacity-80 transition-opacity focus:outline-none cursor-pointer text-left"
+              title="View and Edit Profile Photo"
+            >
+              {user.photo_url ? (
+                <img
+                  src={user.photo_url}
+                  alt={user.fullname}
+                  referrerPolicy="no-referrer"
+                  className="w-9 h-9 rounded-full object-cover border-2 border-indigo-500/30 shadow-sm"
+                />
+              ) : (
+                <div className="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 font-bold border-2 border-indigo-500/10 shadow-sm text-sm">
+                  {user.fullname.charAt(0)}
+                </div>
+              )}
               <div className="hidden lg:block text-left">
                 <p className="text-xs font-semibold text-slate-800 leading-tight">{user.fullname}</p>
                 <p className="text-[10px] text-slate-400 font-mono leading-none mt-0.5">{user.email}</p>
               </div>
-            </div>
+            </button>
           </div>
         </header>
 
@@ -546,6 +682,227 @@ export default function DashboardLayout({ children, activeTab, setActiveTab }: D
           {children}
         </main>
       </div>
+
+      {/* 4. Universal Profile Details & Photo Capture Modal */}
+      <AnimatePresence>
+        {showProfileModal && (
+          <div className="fixed inset-0 z-[999] bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto text-slate-800">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="w-full max-w-lg bg-white rounded-3xl border border-slate-200 shadow-2xl overflow-hidden relative flex flex-col"
+            >
+              {/* Header */}
+              <div className="bg-gradient-to-r from-slate-950 to-slate-900 text-white p-6 flex justify-between items-center">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/25 rounded-xl">
+                    <Camera size={20} className="animate-pulse" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="font-extrabold text-slate-100 text-sm tracking-tight">Your Academic Profile</h3>
+                    <p className="text-[10px] text-slate-400 mt-0.5 font-mono">{getRoleLabel(user.role)}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    stopCamera();
+                    setShowProfileModal(false);
+                  }}
+                  className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all cursor-pointer"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Body */}
+              <div className="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
+                {/* Basic Info Row */}
+                <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-150">
+                  <div className="relative group shrink-0">
+                    {user.photo_url ? (
+                      <img
+                        src={user.photo_url}
+                        alt={user.fullname}
+                        referrerPolicy="no-referrer"
+                        className="w-16 h-16 rounded-full object-cover border-2 border-indigo-500/20 shadow-md"
+                      />
+                    ) : (
+                      <div className="w-16 h-16 rounded-full bg-indigo-50 text-indigo-700 font-black text-xl flex items-center justify-center border-2 border-indigo-500/10 shadow-md">
+                        {user.fullname.charAt(0)}
+                      </div>
+                    )}
+                    <span className="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white" title="Online" />
+                  </div>
+                  <div className="text-left flex-1 min-w-0">
+                    <h4 className="font-bold text-slate-800 text-sm truncate">{user.fullname}</h4>
+                    <p className="text-xs text-slate-500 truncate font-mono">{user.email}</p>
+                    <span className={`inline-block text-[9px] uppercase tracking-wider font-extrabold font-mono px-2 py-0.5 rounded-lg border mt-1.5 ${getRoleBadgeStyle(user.role)}`}>
+                      {getRoleLabel(user.role)}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Camera / Upload Section */}
+                <div className="space-y-4">
+                  <h5 className="text-xs uppercase font-extrabold text-slate-500 font-mono tracking-wider text-left">Update Profile Picture</h5>
+
+                  {/* 1. Camera View Finder */}
+                  {cameraActive && (
+                    <div className="relative rounded-2xl border border-slate-200 bg-slate-950 overflow-hidden shadow-inner aspect-square w-full max-w-[280px] mx-auto flex flex-col justify-center items-center">
+                      <video
+                        id="profile-webcam-stream"
+                        className="w-full h-full object-cover transform -scale-x-100"
+                        playsInline
+                        muted
+                      />
+                      <div className="absolute top-2 left-2 bg-rose-500 text-white font-mono font-bold text-[8px] uppercase px-2 py-0.5 rounded-md animate-pulse">
+                        ● LIVE CAMERA
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 2. Captured Preview View */}
+                  {capturedImage && (
+                    <div className="text-center space-y-2">
+                      <p className="text-[10px] text-emerald-600 font-mono font-bold uppercase">📸 Capture Ready Preview</p>
+                      <div className="relative rounded-full border-4 border-indigo-500/30 overflow-hidden shadow-lg w-40 h-40 mx-auto">
+                        <img
+                          src={capturedImage}
+                          alt="Captured preview"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 3. Camera Error State */}
+                  {cameraError && (
+                    <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs font-medium text-left">
+                      ⚠️ {cameraError}
+                    </div>
+                  )}
+
+                  {/* 4. File Drag & Drop Target (when camera is not streaming and no capture is being reviewed) */}
+                  {!cameraActive && !capturedImage && (
+                    <div
+                      onDragEnter={handleDrag}
+                      onDragOver={handleDrag}
+                      onDragLeave={handleDrag}
+                      onDrop={handleDrop}
+                      className={`border-2 border-dashed rounded-2xl p-6 transition-all text-center relative cursor-pointer ${
+                        dragActive
+                          ? 'border-indigo-500 bg-indigo-50/50'
+                          : 'border-slate-300 hover:border-indigo-400 bg-slate-50 hover:bg-slate-50/80'
+                      }`}
+                    >
+                      <input
+                        type="file"
+                        id="profile-file-picker"
+                        accept="image/*"
+                        className="absolute inset-0 opacity-0 cursor-pointer"
+                        onChange={(e) => {
+                          if (e.target.files && e.target.files[0]) {
+                            handlePhotoUpload(e.target.files[0]);
+                          }
+                        }}
+                      />
+                      <div className="flex flex-col items-center gap-2">
+                        <span className="p-2.5 rounded-full bg-slate-200/50 text-slate-500">
+                          <Upload size={18} />
+                        </span>
+                        <div>
+                          <p className="text-xs font-bold text-slate-700">Drag & Drop profile picture here</p>
+                          <p className="text-[10px] text-slate-400 mt-1">or <span className="text-indigo-600 underline">browse computer</span></p>
+                        </div>
+                        <p className="text-[9px] text-slate-400 font-mono mt-1">Supports JPEG, PNG up to 10MB</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Camera Action Buttons */}
+                  <div className="flex justify-center gap-3">
+                    {cameraActive ? (
+                      <>
+                        <button
+                          type="button"
+                          onClick={capturePhoto}
+                          className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md cursor-pointer flex items-center gap-1.5"
+                        >
+                          📸 Snap Photo
+                        </button>
+                        <button
+                          type="button"
+                          onClick={stopCamera}
+                          className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl cursor-pointer"
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {!capturedImage && (
+                          <button
+                            type="button"
+                            onClick={startCamera}
+                            className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md cursor-pointer flex items-center gap-1.5"
+                          >
+                            📹 Use Webcam Camera
+                          </button>
+                        )}
+                        {capturedImage && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={saveProfilePicture}
+                              disabled={savingPhoto}
+                              className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md cursor-pointer flex items-center gap-1.5 disabled:opacity-50"
+                            >
+                              {savingPhoto ? 'Saving...' : '✅ Save New Picture'}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCapturedImage(null);
+                                startCamera();
+                              }}
+                              className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl cursor-pointer flex items-center gap-1.5"
+                            >
+                              🔄 Retake Photo
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setCapturedImage(null)}
+                              className="px-3 py-2.5 text-rose-600 hover:bg-rose-50 text-xs font-bold rounded-xl cursor-pointer"
+                            >
+                              Discard
+                            </button>
+                          </>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="p-4 bg-slate-50 border-t border-slate-150 flex justify-between items-center text-xs text-slate-400">
+                <p>Webcam requires browser permission</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    stopCamera();
+                    setShowProfileModal(false);
+                  }}
+                  className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Global Toast Notification System */}
       <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none px-4 sm:px-0 animate-in fade-in slide-in-from-bottom-5" id="global-toasts-container">

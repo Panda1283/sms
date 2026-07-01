@@ -8,6 +8,7 @@ interface AuthUser {
   email: string;
   role: UserRole;
   created_at?: string;
+  photo_url?: string;
 }
 
 interface AuthContextType {

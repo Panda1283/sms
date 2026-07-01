@@ -86,9 +86,9 @@ export default function AuthScreens() {
       <div className="w-full max-w-md bg-slate-950/40 border border-slate-800 rounded-3xl shadow-2xl backdrop-blur-md p-8 relative z-10">
         <div className="text-center mb-6">
           <div className="inline-block bg-indigo-600 text-white p-3 rounded-2xl font-black text-xl tracking-wider shadow-lg shadow-indigo-600/20 mb-4">
-            SMS
+            Smart School
           </div>
-          <h1 className="font-extrabold text-2xl text-white tracking-tight leading-tight">Academia System</h1>
+          <h1 className="font-extrabold text-2xl text-white tracking-tight leading-tight">Smart School</h1>
           <p className="text-slate-400 text-xs font-mono mt-1 uppercase tracking-wider">Institution Controller Portal</p>
         </div>
 
